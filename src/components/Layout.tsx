@@ -4,7 +4,7 @@ import { Bell, BellRing, Droplet, LogOut, X } from "lucide-react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { authClient } from "../lib/auth-client";
-import { ToastProvider } from "../hooks/useToast";
+import { ToastProvider } from "../hooks/ToastProvider";
 import ToastContainer from "./Toast";
 
 export default function Layout() {
