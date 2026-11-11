@@ -12,12 +12,13 @@ import {
   X,
 } from "lucide-react";
 import { authClient } from "../lib/auth-client";
+import type { Id } from "../../convex/_generated/dataModel";
 import { useToast } from "../hooks/useToast";
 import HabitCalendar from "../components/HabitCalendar";
 
 export default function HabitDetail() {
   const { id } = useParams<{ id: string }>();
-  const habitId = id as any;
+  const habitId = id as Id<"habits">;
   const navigate = useNavigate();
   const { addToast } = useToast();
   const [copied, setCopied] = useState(false);
@@ -133,7 +134,7 @@ export default function HabitDetail() {
 
       <div className="bg-surface rounded-2xl p-5 shadow-sm border border-on-surface/5 mb-6">
         <HabitCalendar
-          habitId={id!}
+          habitId={habitId}
           logs={details.logs}
           members={details.members}
           currentUserId={currentUserId ?? ""}

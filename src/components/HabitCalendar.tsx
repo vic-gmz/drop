@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { useMutation } from "convex/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 import { useToast } from "../hooks/useToast";
 import type { LogEntry, MemberInfo, CalendarView } from "./calendar/utils";
 import { formatTooltip, MONTH_NAMES, toDateStr } from "./calendar/utils";
@@ -11,7 +12,7 @@ import MonthlyView from "./calendar/MonthlyView";
 import YearlyView from "./calendar/YearlyView";
 
 type HabitCalendarProps = {
-  habitId: string;
+  habitId: Id<"habits">;
   logs: LogEntry[];
   members: MemberInfo[];
   currentUserId: string;
@@ -40,7 +41,7 @@ export default function HabitCalendar({ habitId, logs, members, currentUserId }:
   const handleToggleDay = useCallback(async (dateStr: string) => {
     if (dateStr > todayStr) return;
     try {
-      const result = await toggleLog({ habitId: habitId as any, date: dateStr });
+      const result = await toggleLog({ habitId, date: dateStr });
       if (result.completed) {
         addToast("success", "¡Bien hecho!");
       } else {

@@ -82,7 +82,9 @@ export const getHabitDetails = query({
     const membersWithProfiles = await Promise.all(
       members.map(async (member) => {
         const user = await authComponent.getAnyUserById(ctx, member.userId);
-        const userData = user as any;
+        const userData = user as
+          | (NonNullable<typeof user> & { firstName?: string; lastName?: string })
+          | null;
         return {
           ...member,
           name: user?.name ?? member.userId,
